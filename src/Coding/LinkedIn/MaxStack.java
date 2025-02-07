@@ -22,22 +22,46 @@ import java.util.*;
 public class MaxStack {
     // Construct 2 stacks, 1 for normal stack 1 for max stack.
     // Use DLL
-    private List<Integer> stack;
-    private TreeMap<Integer, List<Integer>> treeMap;
+    Stack<Integer> stack;
+    Stack<Integer> maxStack;
 
     public MaxStack() {
-        stack = new LinkedList<>();
-        treeMap = new TreeMap<>();
-    }
-
-    public int top() {
-        return stack.get(stack.size() - 1);
+        stack = new Stack<>();
+        maxStack = new Stack<>();
     }
 
     public void push(int num) {
-        int currentIter = stack.size();
-        stack.add(num);
-        // Update treeset with freq;
-        // treeMap.computeIfAbsent(num, k -> new ArrayList<>().add(num));
+        stack.push(num);
+        if (maxStack.isEmpty() || num >= maxStack.peek()) {
+            maxStack.push(num);
+        } else {
+            maxStack.push(maxStack.peek());
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int pop(){
+        maxStack.pop();
+        return stack.pop();
+    }
+
+    public int peekMax(){
+        return maxStack.peek();
+    }
+
+    public int popMax() {
+        int max = maxStack.peek();
+        Stack<Integer> buffer = new Stack<>();
+        while (this.top() != max) {
+            buffer.push(this.pop());
+        }
+        this.pop();
+        while (!buffer.isEmpty()) {
+            this.push(buffer.pop());
+        }
+        return max;
     }
 }
