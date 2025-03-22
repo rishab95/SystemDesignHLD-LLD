@@ -1,6 +1,5 @@
 package Coding.Meta;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -52,7 +51,7 @@ public class RandomPickWeight {
     private int totalPopulation;
     private int[] prefix;
 
-    private class City {
+    private static class City {
         String name;
         int population;
 
@@ -95,7 +94,7 @@ public class RandomPickWeight {
         cities.add(new City("New York", 8400000));
         cities.add(new City("Mumbai", 20000000));
 
-        CityPicker picker = new CityPicker(cities);
+        RandomPickWeight picker = new RandomPickWeight(cities);
 
         for (int i = 0; i < 10; i++) {
             System.out.println("Picked city: " + picker.pickCity());
